@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.nav.compose)
     implementation(libs.dagger.hilt)
+    implementation(libs.lottie.compose)
     implementation(project(mapOf("path" to ":core:ui")))
     implementation(project(mapOf("path" to ":domain")))
     implementation(project(mapOf("path" to ":core:data")))

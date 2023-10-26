@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="subtotal_price">Subtotal Price: %s</string>
+    <string name="congrats"> Congratulations</string>
+    <string name="order_placed"> Congratulations. Your order is placed!</string>
+    <string name="ok">OK</string>
+    <string name="home">Home</string>
 </resources>

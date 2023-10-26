@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Compose Navigation</string>
     <string name="cupcake">Cup Cake</string>
+    <string name="order">Order</string>
     <string name="order_cupcakes">Order Cupcakes</string>
     <string name="one_cupcake">One Cupcake</string>
     <string name="six_cupcakes">Six Cupcakes</string>
@@ -17,6 +18,7 @@
     <string name="choose_pickup_date">Choose Pickup Date</string>
     <string name="order_summary">Order Summary</string>
     <string name="send">Send Order to Another App</string>
+    <string name="place_order">Place Order</string>
     <string name="quantity">Quantity</string>
     <string name="flavor">Flavor</string>
     <string name="pickup_date">Pickup date</string>
@@ -25,6 +27,12 @@
     <string name="new_cupcake_order">New Cupcake Order</string>
     <string name="order_details">Quantity: %1$s \nFlavor: %2$s \nPickup date: %3$s \nTotal: %4$s \n\nThank you!</string>
     <string name="back_button">Back</string>
+    <string name="crypto">Crypto</string>
+    <string name="mypage">My page</string>
+    <string name="congrats">Congratulations!</string>
+    <string name="crypto_route">Crypto</string>
+    <string name="myorder_route">My Order</string>
+    <string name="done">Done</string>
     <plurals name="cupcakes">
         <item quantity="one">%d cupcake</item>
         <item quantity="other">%d cupcakes</item>

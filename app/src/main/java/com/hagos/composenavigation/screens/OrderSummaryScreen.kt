@@ -94,7 +94,7 @@ fun OrderSummaryScreen(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { onSendButtonClicked(newOrder, orderSummary) }
                 ) {
-                    Text(stringResource(R.string.send))
+                    Text(stringResource(R.string.place_order))
                 }
                 OutlinedButton(
                     modifier = Modifier.fillMaxWidth(),
