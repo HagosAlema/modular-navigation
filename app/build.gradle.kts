@@ -69,6 +69,8 @@ dependencies {
     implementation(project(mapOf("path" to ":core:data")))
     implementation(project(mapOf("path" to ":core:designsystem")))
     implementation(project(mapOf("path" to ":core:common")))
+    implementation(platform(libs.compose.bom))
+    androidTestImplementation(platform(libs.compose.bom))
     annotationProcessor(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

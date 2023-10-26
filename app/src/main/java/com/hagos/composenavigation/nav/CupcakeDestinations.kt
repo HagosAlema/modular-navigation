@@ -9,6 +9,6 @@ enum class CupcakeDestinations(@StringRes val title: Int) {
     Pickup(R.string.choose_pickup_date),
     Summary(R.string.order_summary),
     Congrats(R.string.congrats),
-    Crypto(R.string.crypto_route),
+    AddOrder(R.string.add_menu),
     MyOrder(R.string.myorder_route)
 }

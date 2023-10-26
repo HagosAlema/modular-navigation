@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Compose Navigation</string>
     <string name="cupcake">Cup Cake</string>
-    <string name="order">Order</string>
+    <string name="add_menu">Add Menu</string>
     <string name="order_cupcakes">Order Cupcakes</string>
     <string name="one_cupcake">One Cupcake</string>
     <string name="six_cupcakes">Six Cupcakes</string>
@@ -14,6 +14,7 @@
     <string name="coffee">Coffee</string>
     <string name="special_flavor">Special Flavor</string>
     <string name="cancel">Cancel</string>
+    <string name="back">Back</string>
     <string name="next">Next</string>
     <string name="choose_pickup_date">Choose Pickup Date</string>
     <string name="order_summary">Order Summary</string>
@@ -30,11 +31,16 @@
     <string name="crypto">Crypto</string>
     <string name="mypage">My page</string>
     <string name="congrats">Congratulations!</string>
-    <string name="crypto_route">Crypto</string>
+    <string name="home_route">Home</string>
     <string name="myorder_route">My Order</string>
     <string name="done">Done</string>
     <plurals name="cupcakes">
         <item quantity="one">%d cupcake</item>
         <item quantity="other">%d cupcakes</item>
     </plurals>
+    <string name="title_activity_add_menu">AddMenuActivity</string>
+    <string name="menu_name">Menu name</string>
+    <string name="menu_price">Menu Price</string>
+    <string name="menu_duration">Menu Duration</string>
+    <string name="menu_summary">Menu Summary</string>
 </resources>

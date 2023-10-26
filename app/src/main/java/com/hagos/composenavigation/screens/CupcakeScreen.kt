@@ -2,7 +2,6 @@ package com.hagos.composenavigation.screens
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Icon
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,7 +17,6 @@ import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -47,6 +45,7 @@ import com.hagos.composenavigation.data.DataSource
 import com.hagos.composenavigation.nav.CupcakeDestinations
 import com.hagos.composenavigation.viewmodel.OrderViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.hagos.composenavigation.addmenu.AddMenuActivity
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,8 +75,8 @@ fun CupcakeAppBar(
 }
 
 enum class BottomMenus(@StringRes val title: Int, val icon: ImageVector){
-    Crypto(R.string.crypto_route, Icons.Filled.Home),
-    Start(R.string.order, Icons.Filled.AddCircle),
+    Start(R.string.home_route, Icons.Filled.Home),
+    AddOrder(R.string.add_menu, Icons.Filled.AddCircle),
     MyOrder(R.string.myorder_route, Icons.Filled.AccountBox),
 }
 
@@ -86,7 +85,6 @@ enum class BottomMenus(@StringRes val title: Int, val icon: ImageVector){
 fun BottomAppBar(
     onMenuItemClick: (String)->Unit = {}
 ){
-    val menus = BottomMenus.values()
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -122,24 +120,30 @@ fun CupcakeApp(
     val currentScreen = CupcakeDestinations.valueOf(
         backStackEntry?.destination?.route ?: CupcakeDestinations.Start.name
     )
+    val context: Context = LocalContext.current
     Scaffold(
         topBar = {
             CupcakeAppBar(
                 currentScreen = currentScreen,
-                canNavigateBack = !(currentScreen == CupcakeDestinations.Start || currentScreen == CupcakeDestinations.MyOrder || currentScreen == CupcakeDestinations.Crypto),
+                canNavigateBack = !(currentScreen == CupcakeDestinations.Start || currentScreen == CupcakeDestinations.MyOrder || currentScreen == CupcakeDestinations.AddOrder),
                 navigateUp = { navController.navigateUp()})
         },
         bottomBar = { BottomAppBar {
+            if (it.equals(CupcakeDestinations.AddOrder.name)){
+                val intent = Intent(context, AddMenuActivity::class.java)
+                context.startActivity(intent)
+            } else {
 //            navController.navigateSingleTop(it.name)
-            navController.navigate(route = it){
-                navController.graph.startDestinationRoute?.let {route->
-                    popUpTo(route){
-                        saveState = true
+                navController.navigate(route = it) {
+                    navController.graph.startDestinationRoute?.let { route ->
+                        popUpTo(route) {
+                            saveState = true
+                        }
                     }
-                }
-                launchSingleTop = true
-                restoreState = true
+                    launchSingleTop = true
+                    restoreState = true
 
+                }
             }
         }},
     ) { innerPadding ->
@@ -159,7 +163,6 @@ fun CupcakeApp(
                     )
                 }
                 composable(route = CupcakeDestinations.Flavor.name) {
-                    val context = LocalContext.current
                     SelectOptionScreen(
                         subtotal = uiState.price,
                         onNextButtonClicked = {
@@ -184,7 +187,6 @@ fun CupcakeApp(
                     )
                 }
                 composable(route = CupcakeDestinations.Summary.name) {
-                    val context = LocalContext.current
                     OrderSummaryScreen(
                         orderUiState = uiState,
                         onCancelButtonClicked = {
@@ -203,8 +205,8 @@ fun CupcakeApp(
                         }
                     )
                 }
-                composable(route = CupcakeDestinations.Crypto.name){
-                    CryptoScreen()
+                composable(route = CupcakeDestinations.AddOrder.name){
+
                 }
                 composable(route = CupcakeDestinations.MyOrder.name) {
                     MyOrderScreen()
