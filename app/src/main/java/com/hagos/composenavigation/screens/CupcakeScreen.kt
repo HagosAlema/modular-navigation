@@ -35,17 +35,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.hagos.composenavigation.R
+import com.hagos.composenavigation.crypto.CryptoNameScreen
+import com.hagos.composenavigation.crypto.CryptoPasscodeScreen
+import com.hagos.composenavigation.crypto.CryptoViewModel
 import com.hagos.composenavigation.data.DataSource
 import com.hagos.composenavigation.nav.CupcakeDestinations
 import com.hagos.composenavigation.viewmodel.OrderViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.hagos.composenavigation.addmenu.AddMenuActivity
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,7 +78,7 @@ fun CupcakeAppBar(
 
 enum class BottomMenus(@StringRes val title: Int, val icon: ImageVector){
     Start(R.string.home_route, Icons.Filled.Home),
-    AddOrder(R.string.add_menu, Icons.Filled.AddCircle),
+    AddCrypto(R.string.add_crypto, Icons.Filled.AddCircle),
     MyOrder(R.string.myorder_route, Icons.Filled.AccountBox),
 }
 
@@ -113,7 +115,8 @@ fun BottomAppBar(
 
 @Composable
 fun CupcakeApp(
-    viewModel: OrderViewModel = viewModel(),
+    orderViewModel: OrderViewModel = viewModel(),
+    cryptoViewModel: CryptoViewModel = viewModel(),
     navController: NavHostController = rememberNavController()
 ) {
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -125,14 +128,15 @@ fun CupcakeApp(
         topBar = {
             CupcakeAppBar(
                 currentScreen = currentScreen,
-                canNavigateBack = !(currentScreen == CupcakeDestinations.Start || currentScreen == CupcakeDestinations.MyOrder || currentScreen == CupcakeDestinations.AddOrder),
+                canNavigateBack = !(currentScreen == CupcakeDestinations.Start || currentScreen == CupcakeDestinations.MyOrder || currentScreen == CupcakeDestinations.AddCrypto),
                 navigateUp = { navController.navigateUp()})
         },
         bottomBar = { BottomAppBar {
-            if (it.equals(CupcakeDestinations.AddOrder.name)){
-                val intent = Intent(context, AddMenuActivity::class.java)
-                context.startActivity(intent)
-            } else {
+//            if (it.equals(CupcakeDestinations.AddOrder.name)){
+////                val intent = Intent(context, AddMenuActivity::class.java)
+////                context.startActivity(intent)
+//
+//            } else {
 //            navController.navigateSingleTop(it.name)
                 navController.navigate(route = it) {
                     navController.graph.startDestinationRoute?.let { route ->
@@ -144,10 +148,10 @@ fun CupcakeApp(
                     restoreState = true
 
                 }
-            }
+//            }
         }},
     ) { innerPadding ->
-        val uiState by viewModel.uiState.collectAsState()
+        val uiState by orderViewModel.uiState.collectAsState()
         NavHost(
             navController = navController,
             startDestination = CupcakeDestinations.Start.name,
@@ -157,7 +161,7 @@ fun CupcakeApp(
                     StartOrderScreen(
                         quantityOptions = DataSource.quantityOptions,
                         onNextButtonClicked = {
-                            viewModel.setQuantity(it)
+                            orderViewModel.setQuantity(it)
                             navController.navigateSingleTop(CupcakeDestinations.Flavor.name)
                         }
                     )
@@ -169,10 +173,10 @@ fun CupcakeApp(
                             navController.navigateSingleTop(CupcakeDestinations.Pickup.name)
                         },
                         onCancelButtonClicked = {
-                            cancelOrderAndNavigateToStart(viewModel, navController)
+                            cancelOrderAndNavigateToStart(orderViewModel, navController)
                         },
                         options = DataSource.flavors.map { id -> context.resources.getString(id) },
-                        onSelectionChanged = { viewModel.setFlavor(it) }
+                        onSelectionChanged = { orderViewModel.setFlavor(it) }
                     )
                 }
                 composable(route = CupcakeDestinations.Pickup.name) {
@@ -180,17 +184,17 @@ fun CupcakeApp(
                         subtotal = uiState.price,
                         onNextButtonClicked = { navController.navigateSingleTop(CupcakeDestinations.Summary.name) },
                         onCancelButtonClicked = {
-                            cancelOrderAndNavigateToStart(viewModel, navController)
+                            cancelOrderAndNavigateToStart(orderViewModel, navController)
                         },
                         options = uiState.pickupOptions,
-                        onSelectionChanged = { viewModel.setDate(it) }
+                        onSelectionChanged = { orderViewModel.setDate(it) }
                     )
                 }
                 composable(route = CupcakeDestinations.Summary.name) {
                     OrderSummaryScreen(
                         orderUiState = uiState,
                         onCancelButtonClicked = {
-                            cancelOrderAndNavigateToStart(viewModel, navController)
+                            cancelOrderAndNavigateToStart(orderViewModel, navController)
                         },
                         onSendButtonClicked = { subject: String, summary: String ->
 //                            shareOrder(context, subject, summary)
@@ -201,7 +205,7 @@ fun CupcakeApp(
                 composable(route = CupcakeDestinations.Congrats.name){
                     CongratsScreen(
                         onDoneButtonClicked = {
-                            cancelOrderAndNavigateToStart(viewModel, navController)
+                            cancelOrderAndNavigateToStart(orderViewModel, navController)
                         }
                     )
                 }
@@ -210,6 +214,28 @@ fun CupcakeApp(
                 }
                 composable(route = CupcakeDestinations.MyOrder.name) {
                     MyOrderScreen()
+                }
+                composable(route = CupcakeDestinations.AddCrypto.name){
+                    CryptoNameScreen(
+                        cryptoViewModel,
+                        onBack = {
+                                 navController.popBackStack(route = CupcakeDestinations.AddCrypto.name, inclusive = true)
+                        },
+                        onNext = {
+                            navController.navigateSingleTop(CupcakeDestinations.EnterPasscode.name)
+                        }
+                    )
+                }
+                composable(route = CupcakeDestinations.EnterPasscode.name){
+                    CryptoPasscodeScreen(
+                        cryptoViewModel,
+                        onBack = {
+                            navController.popBackStack()
+                        },
+                        onNext = {
+                            navController.popBackStack()
+                        }
+                    )
                 }
             },
         )

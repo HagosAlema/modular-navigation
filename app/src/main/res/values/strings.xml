@@ -2,6 +2,7 @@
     <string name="app_name">Compose Navigation</string>
     <string name="cupcake">Cup Cake</string>
     <string name="add_menu">Add Menu</string>
+    <string name="add_more">Add More</string>
     <string name="order_cupcakes">Order Cupcakes</string>
     <string name="one_cupcake">One Cupcake</string>
     <string name="six_cupcakes">Six Cupcakes</string>
@@ -43,4 +44,12 @@
     <string name="menu_price">Menu Price</string>
     <string name="menu_duration">Menu Duration</string>
     <string name="menu_summary">Menu Summary</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="enter_name">Enter name</string>
+    <string name="add_crypto">AddCrypto</string>
+    <string name="crypto_name">Crypto Name</string>
+    <string name="enter_passcode">Enter Passcode</string>
+    <string name="crypto_passcode">Crypto Passcode</string>
+    <string name="create_crypto">Create Crypto</string>
+    <string name="create">Create</string>
 </resources>

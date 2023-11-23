@@ -5,4 +5,5 @@
     <string name="order_placed"> Congratulations. Your order is placed!</string>
     <string name="ok">OK</string>
     <string name="home">Home</string>
+    <string name="button">Button</string>
 </resources>

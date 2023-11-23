@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.Packaging
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.com.android.library)
@@ -13,6 +15,26 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        ndk {
+            abiFilters.apply {
+                add("")
+                add("")
+            }
+        }
+
+        externalNativeBuild {
+            cmake {
+                cppFlags
+            }
+        }
+
+    }
+
+    externalNativeBuild {
+        cmake {
+            path
+
+        }
     }
 
     buildTypes {
@@ -30,6 +52,18 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs = listOf("")
+    }
+
+    packaging {
+        resources {
+            excludes
+        }
+    }
+    sourceSets {
+        getByName("main"){
+            jniLibs.srcDirs("src/main/cpp")
+        }
     }
 }
 

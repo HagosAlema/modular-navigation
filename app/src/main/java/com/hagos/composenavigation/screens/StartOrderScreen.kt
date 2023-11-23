@@ -1,6 +1,7 @@
 package com.hagos.composenavigation.screens
 
 
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hagos.composenavigation.R
 import com.hagos.composenavigation.data.DataSource
+import com.hagos.designsystem.component.PrimaryCommonButton
 
 /**
  * Composable that allows the user to select the desired cupcake quantity and expects
@@ -39,13 +41,13 @@ fun StartOrderScreen(
     modifier: Modifier = Modifier
 ){
     Column(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
             Spacer(modifier = Modifier.height(16.dp))
             Image(
@@ -76,6 +78,8 @@ fun StartOrderScreen(
                 }
             }
         }
+        Spacer(modifier = Modifier.height(8.dp))
+
     }
 }
 
@@ -103,6 +107,8 @@ fun StartOrderPreview(){
     StartOrderScreen(
         quantityOptions = DataSource.quantityOptions,
         onNextButtonClicked = {},
-        modifier = Modifier.fillMaxSize().padding(16.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
     )
 }

@@ -17,7 +17,7 @@ fun MenuNameScreen(
 ){
     AddMenuLayout(
         modifier = modifier,
-        cancel = R.string.cancel,
+        cancel = com.hagos.designsystem.R.string.home,
         next = R.string.next,
         onNextButtonClicked = onNextButtonClicked,
         onCancelButtonClicked = onCancelButtonClicked

@@ -1,0 +1,176 @@
+
+@startuml
+
+class User {
+    + guid: String
+    + email: String
+    + password: String
+    + username: String,
+    + bio: String
+    + passcode: String
+    + name: String
+    + bod: Date
+    ...
+}
+class Basket {
+    + luid: String
+    + name: String
+    + index: Int
+    + isTrashed: Boolean
+}
+
+abstract class ObjectEntity {
+    + luid: String
+    + basketLuid: String
+    + isFavorite: String
+    + isTrash: String
+    + type: Int
+    + subType: Int
+    + title: String
+    + description: String
+}
+
+class Crypto {
+    + luid: String
+    + basketLuid: String
+    + address: String
+    + contractAddress: String
+    + otherAddress: String?
+    + blockchain: String
+    + cryptoName: String
+    + decimal: Int
+    + image: String
+    + balance: Double
+    + customName: String
+    + index: Int
+    + customDescription: String?
+    + attribute: String?
+    + getTitle(): String
+    + getDescription(): String
+}
+
+class AddressBookEntity {
+    + guid: String
+    + blockchain: String
+    + name: String
+    + address: String
+}
+
+Crypto --|> ObjectEntity
+User "1"-->"0..n" ObjectEntity
+
+@enduml
+
+@startuml
+package app {
+    package screens{
+    }
+
+    package components {
+
+    }
+    package uiEntity {
+
+    }
+    screens ..> uiEntity
+    screens ..> components
+    components .. uiEntity
+}
+
+package common {
+
+}
+package designsystem {
+    enum colors {
+        color
+        list
+    }
+    enum typography {
+        typography
+        list
+    }
+
+    enum shapes {
+    }
+
+    package theme {
+
+    }
+
+    package components {
+    }
+
+    package icons {
+
+    }
+    components ..>theme
+    theme ..> colors
+    theme ..> typography
+    theme ..> shapes
+}
+
+package user {
+   package entity {
+
+   }
+   package usecase {
+
+   }
+   usecase ..> entity
+}
+
+package crypto {
+package entity {
+
+   }
+   package usecase {
+
+   }
+   usecase ..> entity
+}
+
+package cryptography {
+
+package entity {
+
+   }
+   package usecase {
+
+   }
+   usecase ..> entity
+}
+
+package datasource {
+    package models {}
+    package repositoryImp {}
+}
+
+package common {
+    package basket {}
+    package history {}
+    package entity {}
+
+    basket ..> entity
+    history ..> entity
+}
+
+
+
+app ..> designsystem
+
+datasource ..|> user
+datasource ..|> cryptography
+datasource ..|> common
+datasource ..|> crypto
+
+
+
+app ..> user
+
+app ..> crypto
+
+app ..> cryptography
+
+app ..> common
+
+@enduml

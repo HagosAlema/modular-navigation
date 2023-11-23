@@ -39,7 +39,7 @@ fun SelectOptionScreen(
     onSelectionChanged: (String) -> Unit = {},
     onCancelButtonClicked: ()->Unit = {},
     onNextButtonClicked: () -> Unit = {},
-    modifier: Modifier = Modifier.fillMaxHeight()
+    modifier: Modifier = Modifier
 ){
     var selectedValue by rememberSaveable { mutableStateOf("") }
 

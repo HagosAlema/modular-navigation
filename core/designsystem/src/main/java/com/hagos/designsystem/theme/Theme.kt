@@ -2,17 +2,30 @@ package com.hagos.designsystem.theme
 
 import android.app.Activity
 import android.os.Build
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.waitForUpOrCancellation
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.ripple.RippleAlpha
+import androidx.compose.material.ripple.RippleTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 
 
@@ -80,6 +93,17 @@ private val DarkColors = darkColorScheme(
     scrim = md_theme_dark_scrim,
 )
 
+object ButtonRipple :RippleTheme{
+    @Composable
+    override fun defaultColor(): Color = RippleTheme.defaultRippleColor(black, lightTheme = true)
+
+    @Composable
+    override fun rippleAlpha(): RippleAlpha = RippleTheme.defaultRippleAlpha(black, lightTheme = true)
+
+}
+
+val LocalRipple = staticCompositionLocalOf { ButtonRipple}
+
 @Composable
 fun ComposeNavigationTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -105,9 +129,28 @@ fun ComposeNavigationTheme(
         }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+    CompositionLocalProvider(LocalRipple provides ButtonRipple) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography,
+            content = content
+        )
+    }
+
+}
+
+
+fun Modifier.noRipplePointerInput(onClick: ()->Unit, onInput: (isPressed: Boolean)->Unit):Modifier{
+    return this.pointerInput(Unit){
+        awaitEachGesture {
+            awaitFirstDown().also {
+                onInput(true)
+            }
+            val up = waitForUpOrCancellation()
+            onInput(false)
+            up?.consume()
+            onClick()
+        }
+
+    }
 }

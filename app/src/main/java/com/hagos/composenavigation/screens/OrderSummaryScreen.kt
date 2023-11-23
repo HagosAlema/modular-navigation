@@ -64,7 +64,7 @@ fun OrderSummaryScreen(
     )
 
     Column(
-        modifier = modifier.fillMaxHeight(),
+        modifier = modifier,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(

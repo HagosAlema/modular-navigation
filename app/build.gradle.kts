@@ -1,7 +1,8 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.com.android.application)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.com.android.library) apply false
+    alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.ksp)
 }
@@ -61,17 +62,11 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
-    implementation(libs.nav.compose)
-    implementation(libs.dagger.hilt)
-    implementation(libs.lottie.compose)
-    implementation(project(mapOf("path" to ":core:ui")))
     implementation(project(mapOf("path" to ":domain")))
-    implementation(project(mapOf("path" to ":core:data")))
     implementation(project(mapOf("path" to ":core:designsystem")))
+    implementation(project(mapOf("path" to ":core:datastore")))
+    implementation(project(mapOf("path" to ":core:database")))
     implementation(project(mapOf("path" to ":core:common")))
-    implementation(platform(libs.compose.bom))
-    androidTestImplementation(platform(libs.compose.bom))
-    annotationProcessor(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -79,4 +74,27 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+
+
+    // Compose dependencies
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.accompanist.flowlayout)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.activity.compose.v160alpha01)
+    implementation(libs.accompanist.swiperefresh)
+
+    // Coil
+    implementation(libs.coil.compose)
+
+    //Dagger - Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.hilt.navigation.compose)
+    implementation(libs.androidx.work.runtime.ktx)
+
+    implementation(libs.kotlinx.coroutines.android)
+
+    implementation(libs.lottie)
+    implementation(libs.lottie.compose)
 }

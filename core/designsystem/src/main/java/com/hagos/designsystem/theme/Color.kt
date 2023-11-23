@@ -62,3 +62,101 @@ val md_theme_dark_inversePrimary = Color(0xFF984062)
 val md_theme_dark_surfaceTint = Color(0xFFFFB0C9)
 val md_theme_dark_outlineVariant = Color(0xFF514347)
 val md_theme_dark_scrim = Color(0xFF000000)
+
+
+//CORE colors
+val white = Color(0xFFFFFFFF)
+val black = Color(0xFF000000)
+val stanford500 = Color(0xFFB82E3E)
+val stanford400 = Color(0xFFD14758)
+val stanford050 = Color(0xFFFBEEF0)
+val stanford010 = Color(0xFFFDF6F7)
+val coolgray050 = Color(0xFFF9FAFB)
+val coolgray100 = Color(0xFFF6F6F8)
+val coolgray200 = Color(0xFFDFDFE4)
+val red350 = Color(0xFFFE483E)
+val amber400 = Color(0xFFF8A401)
+val green300 = Color(0xFF2AC93A)
+val cyan500 = Color(0xFF0789B0)
+val blue350 = Color(0xFF2A8AFE)
+
+//SEMANTIC colors
+val brandPrimary = stanford500
+val brandSecondary = stanford400
+val brandQuaternary = stanford050
+val brandQuinary = stanford010
+
+val textActive = Color(0xd9000000)
+val textDefault = Color(0xa6000000)
+val textMute = Color(0x73000000)
+val textDisabled = Color(0x40000000)
+val textPale = Color(0x26000000)
+val textLighten = Color(0xFFFFFFFF)
+
+val borderSecondary = Color(0x40000000)
+val borderTertiary = Color(0x26000000)
+val borderQuaternary = Color(0x1A000000)
+val borderQuinary = Color(0x0D000000)
+
+val stateNormal = cyan500
+val stateSuccess = green300
+val stateDelayed = amber400
+val stateFailed = red350
+
+val surfacecontainerLowest = white
+val surfacecontainerLow = coolgray050
+val surfacecontainer = coolgray100
+val surfacecontainerHigh = coolgray200
+
+val link = blue350
+
+
+
+internal object Colors {
+    //CORE colors
+    val white = Color(0xFFFFFFFF)
+    val black = Color(0xFF000000)
+    val stanford500 = Color(0xFFB82E3E)
+    val stanford400 = Color(0xFFD14758)
+    val stanford050 = Color(0xFFFBEEF0)
+    val stanford010 = Color(0xFFFDF6F7)
+    val coolgray050 = Color(0xFFF9FAFB)
+    val coolgray100 = Color(0xFFF6F6F8)
+    val coolgray200 = Color(0xFFDFDFE4)
+    val red350 = Color(0xFFFE483E)
+    val amber400 = Color(0xFFF8A401)
+    val green300 = Color(0xFF2AC93A)
+    val cyan500 = Color(0xFF0789B0)
+    val blue350 = Color(0xFF2A8AFE)
+
+    //SEMANTIC colors
+    val brandPrimary = stanford500
+    val brandSecondary = stanford400
+    val brandQuaternary = stanford050
+    val brandQuinary = stanford010
+
+    val textActive = Color(0xd9000000)
+    val textDefault = Color(0xa6000000)
+    val textMute = Color(0x73000000)
+    val textDisabled = Color(0x40000000)
+    val textPale = Color(0x26000000)
+    val textLighten = Color(0xFFFFFFFF)
+
+    val borderSecondary = Color(0x40000000)
+    val borderTertiary = Color(0x26000000)
+    val borderQuaternary = Color(0x1A000000)
+    val borderQuinary = Color(0x0D000000)
+
+    val stateNormal = cyan500
+    val stateSuccess = green300
+    val stateDelayed = amber400
+    val stateFailed = red350
+
+    val surfacecontainerLowest = white
+    val surfacecontainerLow = coolgray050
+    val surfacecontainer = coolgray100
+    val surfacecontainerHigh = coolgray200
+
+    val link = blue350
+
+}

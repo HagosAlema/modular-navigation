@@ -15,7 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Compose Navigation"
 include(":app")
-include(":core:data")
 include(":core:ui")
 include(":core:designsystem")
 include(":core:common")
